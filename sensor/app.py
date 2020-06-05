@@ -1,5 +1,6 @@
 import json
 from qr_reader import QrCodeReader as QrReader
+from iot_communication import SendLog
 
 def init():
     global rasp_id
@@ -8,9 +9,11 @@ def init():
     rasp_id = config["rasp_id"]
 
 def run():
-    qrReader = QrReader()
-    tmp = qrReader.getQrCode()
-    print(tmp)
+	#qrReader = QrReader()
+	#tmp = qrReader.getQrCode()
+	#print(tmp)
+	sendLog = SendLog()
+	sendLog.send_log(rasp_id,"5293291","35.7")
                 
 
 
