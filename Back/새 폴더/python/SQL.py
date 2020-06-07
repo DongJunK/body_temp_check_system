@@ -1,9 +1,10 @@
 import os
 import sqlite3
 import sys
-from parsing import getLog as Log
+from BringLog import GetLog as Log
 from sqlite3 import Error
 import inspect
+
 
 class SQL_Syntax:
     db_conn = None
@@ -20,8 +21,16 @@ class SQL_Syntax:
             print(method, end=' /Error is ')
             print(e)
 
+    def setCreateTable(self, sql_syntax):
+        try:
+            c = self.db_conn.cursor()
+            c.execute(sql_syntax)
+
+        except Error as e:
+            print(e)
+
     def bring_All_data(self):
-        sql = "SELECT * FROM temp3"
+        sql = "SELECT * FROM temp"
         db_cursor = self.db_conn.cursor()
         return self.Try_Except(db_cursor, inspect.stack()[0][3], sql)
 
