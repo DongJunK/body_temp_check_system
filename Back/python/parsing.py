@@ -15,7 +15,7 @@ class getLog:
             return requests.get(url, headers=headers)
 
     def get_log_list(self):
-        resp = getLog.req('?from=1577804400000&to=1590678000000', 'GET')
+        resp = getLog.req('?from=1577804400000&to=1609254000000', 'GET')
         resp_body = resp.json()
         print(resp_body["data"])
         return resp_body["data"]
