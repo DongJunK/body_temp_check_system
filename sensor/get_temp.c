@@ -35,8 +35,10 @@ const char* get_temp()
         sensorTemp[count] = (float)rawTemp[0]*0.02 - 273.15;
         objTemp[count] = (float)rawTemp[1]*0.02 - 273.15;
 
-        //printf("SenT:%3.2f, Obj:3.2f\n",sensorTemp[count],objTemp[count]);
+        //printf("SenT:%3.2f, Obj:%3.2f\n",sensorTemp[count],objTemp[count]);
+
         delay(500);
+		++count;
         if(count == 10) break;
     }
 
