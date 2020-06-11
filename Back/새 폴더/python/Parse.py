@@ -10,7 +10,7 @@ class Parsing:
 
     def db_insert(self, conn, par_form):
         parse = par_form.split("_")
-        if len(parse) != 4:
+        if len(parse) != 4: # Data Form Checking
             if len(parse) < 4:
                 print("Omission Error ", end="")
                 print(parse)

@@ -23,11 +23,11 @@ class SQL_Syntax:
             print(method, end=' /Error is ')
             print(e)
 
-    def setCreateTable(self, sql_syntax):
+    def setCreateTable(self, sql_initTable_syntax, sql_studentTable_syntax):
         try:
             c = self.db_conn.cursor()
-            c.execute(sql_syntax)
-
+            c.execute(sql_initTable_syntax)
+            c.execute(sql_studentTable_syntax)
         except Error as e:
             print(e)
 

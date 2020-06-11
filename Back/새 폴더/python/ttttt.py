@@ -1,5 +1,6 @@
 import tkinter
-import tkinter.ttk
+
+
 
 window = tkinter.Tk()
 window.title("YUN DAE HEE")

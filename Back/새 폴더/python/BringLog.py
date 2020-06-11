@@ -9,7 +9,10 @@ class GetLog:
     datetime_to = None
 
     def __init__(self, datetime_from):
-        self.datetime_from = int(time.mktime(datetime_from.timetuple())*1000+1)
+        if datetime_from is None:
+            self.datetime_from = 1577804400000
+        else:
+            self.datetime_from = int(time.mktime(datetime_from.timetuple())*1000+1000) # +1000 is avoid conflict
 
     def req(path, method):
         headers = {
@@ -23,9 +26,10 @@ class GetLog:
 
     def get_log_list(self):
         #resp = GetLog.req('?from=1577804400000&to=1609254000000', 'GET')
-        current_timestamp = datetime.datetime.now().timestamp()*1000
+        current_timestamp = int(datetime.datetime.now().timestamp()*1000)
+        #print(current_timestamp)
         datetime_range = '?from={}&to={}'.format(self.datetime_from, current_timestamp)
         resp = GetLog.req(datetime_range, 'GET')
         resp_body = resp.json()
-        print(resp_body["data"])
+        #print(resp_body["data"])
         return resp_body["data"]
