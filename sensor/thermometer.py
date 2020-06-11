@@ -8,5 +8,5 @@ class TempControl:
 	def get_temp(self):
 		_temp = getTemp.get_temp()
 		temp = ctypes.c_char_p(_temp).value
-		return temp[0:5]
+		return temp[0:5].decode('utf-8')
 

@@ -5,8 +5,8 @@ from time import sleep
 
 class QrCodeReader:
     end_check = False
-
-    def __release(self):
+    
+    def release(self):
         cap.release()
         cv2.destroyAllWindows()
     
@@ -20,19 +20,17 @@ class QrCodeReader:
                 break
     def checkTime(self):
         time_check = threading.Thread(target=self.countSec)
-        time_check.daemon = True
+       
         time_check.start()
 
     def getQrCode(self):
         global cap
-
         cap = cv2.VideoCapture(0)
         self.checkTime()
-
         while(cap.isOpened()):
             ret, img = cap.read()
             if self.end_check == True:
-                self.__release()
+                self.release()
                 return "False"
             if not ret:
                 continue
@@ -42,5 +40,5 @@ class QrCodeReader:
                 barcode_data = d.data.decode("utf-8")
                 barcode_type = d.type
                 if barcode_type == "QRCODE":
-                    self.__release()
                     return barcode_data[0:7]
+
