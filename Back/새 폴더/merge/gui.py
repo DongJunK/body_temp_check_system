@@ -2,7 +2,11 @@ import sqlite3
 from tkinter import *
 from tkcalendar import *
 from tkinter import ttk
+from SQL import SQL_Syntax as Sql
 import datetime
+import os
+
+path = os.getcwd() + "\\database.db"
 
 class MyApp:
     def __init__(self, master):
@@ -54,8 +58,11 @@ class MyApp:
 
     def OnDoubleClick(self,event):
         item = self.treeview.selection()[0]
-        print(self.treeview.item(item).get('values')[2])
-
+        select_student_number = self.treeview.item(item).get('values')[2]
+        print(select_student_number)
+        sql = Sql(path)
+        print(sql.get_student_data(select_student_number))
+        #i = Sql.get_student_data(select_student_number)
 
 
 

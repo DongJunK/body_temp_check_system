@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Error
 
-class Create:
+class Connection:
     path = None
     db_conn = None
 

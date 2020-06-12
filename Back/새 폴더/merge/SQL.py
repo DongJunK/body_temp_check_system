@@ -25,16 +25,18 @@ class SQL_Syntax:
             print(method, end=' /Error is ')
             print(e)
 
-    def setCreateTable(self, sql_initTable_syntax, sql_studentTable_syntax):
+    def setCreateTable(self, sql_initTable_syntax, sql_studentTable_syntax, sql_raspberryTable_syntax):
         try:
             c = self.db_conn.cursor()
             c.execute(sql_initTable_syntax)
             c.execute(sql_studentTable_syntax)
+            c.execute(sql_raspberryTable_syntax)
+            c.close()
         except Error as e:
             print(e)
 
     def get_All_data(self):
-        sql = "SELECT * FROM temp"
+        sql = "SELECT * FROM log"
         db_cursor = self.db_conn.cursor()
         return self.Try_Except(db_cursor, inspect.stack()[0][3], sql) # inspect.stack()[0][3] is method name
 
@@ -48,7 +50,7 @@ class SQL_Syntax:
         return self.Try_Except(db_cursor, inspect.stack()[0][3], sql_syntax)
 
     def get_last_log_timestamp(self):
-        sql_syntax = "SELECT logtime FROM temp"
+        sql_syntax = "SELECT logtime FROM log"
         db_cursor = self.db_conn.cursor()
         db_datetime_list = self.Try_Except(db_cursor, inspect.stack()[0][3], sql_syntax)
         if db_datetime_list is None:
@@ -62,8 +64,8 @@ class SQL_Syntax:
             return latest
 
     def get_student_data(self, student_id):
-        sql_syntax = "SELECT * FROM student1"
-        db_cursor = self.db_conn.cursor
+        sql_syntax = "SELECT * FROM student1 WHERE student_id={}".format(int(student_id))
+        db_cursor = self.db_conn.cursor()
         return self.Try_Except(db_cursor, inspect.stack()[0][3], sql_syntax)
 
     def __del__(self):
@@ -72,7 +74,11 @@ class SQL_Syntax:
     def insert_tempTable(self, list):
         db_cursor = self.db_conn.cursor()
         try:
-            db_cursor.execute("INSERT INTO temp(raspberry_pi_serial_number, student_number, temperature, logtime) "
+            try:
+                int(list[1])
+            except ValueError:
+                list[1] = int(0)
+            db_cursor.execute("INSERT INTO log(raspberry_pi_serial_number, student_number, temperature, logtime) "
                       "VALUES(?,?,?,?)", (list[0], list[1], list[2], list[3]))
             self.db_conn.commit()
             return True
@@ -82,6 +88,11 @@ class SQL_Syntax:
         finally:
             db_cursor.close()
 
+    def get_join_data(self):
+        db_cursor = self.db_conn.cursor()
+        sql_syntax = "SELECT A.build_name, A.student_number, S.student_name, A.temperature, A.logtime  " \
+                     "FROM (log  as L JOIN raspberry AS R)AS A JOIN student1 AS S  ON L.raspberry_pi_serial_number = R.raspberry_number AND A.student_number = S.student_id"
+        return self.Try_Except(db_cursor, inspect.stack()[0][3], sql_syntax)
 
 
     # def convert_to_csv(self):

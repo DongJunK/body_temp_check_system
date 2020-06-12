@@ -8,6 +8,7 @@ import time
 
 class Parsing:
     path = None
+
     def __init__(self,path):
         self.path = path
 
@@ -27,6 +28,7 @@ class Parsing:
                 print("SUCCESS")
             else:
                 print("ERROR")
+            del insert
 
     def data_normalization(self, log):
         del log[0]
