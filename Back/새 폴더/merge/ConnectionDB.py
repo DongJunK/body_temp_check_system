@@ -1,14 +1,12 @@
 import sqlite3
 from sqlite3 import Error
 
-class Create:
+class Connection:
     path = None
     db_conn = None
-    sql_create_syntax = None
 
-    def __init__(self, path, sql_create_syntax):
+    def __init__(self, path):
         self.path = path
-        self.sql_create_syntax = sql_create_syntax
 
     def set_create_connection(self):
         conn = None

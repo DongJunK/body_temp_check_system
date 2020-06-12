@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fea1c4b3-5c96-4291-901e-24cdb747f30e" name="Default Changelist" comment="" />
+    <list default="true" id="fea1c4b3-5c96-4291-901e-24cdb747f30e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../merge/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StudentDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CreateDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/ConnectionDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Parse.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL.py" beforeDir="false" afterPath="$PROJECT_DIR$/SQL.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../영란/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../영란/gui.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,8 +38,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../python" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../merge" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.Main">
     <configuration name="BringLog" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -43,7 +54,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\nypar\Desktop\body_temp_check_system-master\Back\python\BringLog.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BringLog.py" />
       <option name="PARAMETERS" value="F:\GoogleDrive\2020.1학기\IoT프로그래밍\python\testDB.db" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -73,7 +84,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="SHIC_Indi_Ex1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="SHIC_Indi_Ex1" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="python" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -86,6 +97,48 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../Indi_Python_Exam/SHIC_Indi_Ex1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="StudentDB" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\Pcs\anaconda3\envs\iotprogramming\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/StudentDB.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ThreadProgressbar" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\Pcs\anaconda3\envs\iotprogramming\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ThreadProgressbar.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -115,7 +168,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tkinter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="ttttt" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -127,7 +180,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tkinter.py" />
+      <option name="SCRIPT_NAME" value="D:\Github_IoTMakers\body_temp_check_system\Back\새 폴더\python\ttttt.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -138,16 +191,17 @@
     </configuration>
     <list>
       <item itemvalue="Python.BringLog" />
-      <item itemvalue="Python.Main" />
-      <item itemvalue="Python.SHIC_Indi_Ex1" />
       <item itemvalue="Python.tes" />
-      <item itemvalue="Python.tkinter" />
+      <item itemvalue="Python.SHIC_Indi_Ex1" />
+      <item itemvalue="Python.ThreadProgressbar" />
+      <item itemvalue="Python.StudentDB" />
+      <item itemvalue="Python.Main" />
+      <item itemvalue="Python.ttttt" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.Main" />
-        <item itemvalue="Python.tkinter" />
-        <item itemvalue="Python.SHIC_Indi_Ex1" />
+        <item itemvalue="Python.ttttt" />
       </list>
     </recent_temporary>
   </component>
@@ -164,54 +218,87 @@
     </task>
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../.." />
+    </ignored-roots>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="175" width="1092" height="712" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591533568245">
+    <state x="552" y="178" key="#Inspections" timestamp="1591711101112">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591533568245" />
-    <state x="414" y="175" width="1092" height="712" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591001399266" />
+    <state x="552" y="178" key="#Inspections/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591711101112" />
+    <state x="552" y="178" key="#Notifications" timestamp="1591533792797">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Notifications/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591533792797" />
+    <state x="414" y="175" width="1092" height="712" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591858402412">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591794648696" />
+    <state x="414" y="175" width="1092" height="712" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591858402412" />
     <state x="740" y="236" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1590817246217">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="236" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590817246217" />
-    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1591533599888">
+    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1591860982742">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="261" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591533599888" />
-    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1591353867057" />
-    <state width="1899" height="220" key="GridCell.Tab.0.bottom" timestamp="1591533683205">
+    <state x="740" y="261" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591794645951" />
+    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1591860982742" />
+    <state width="1899" height="348" key="GridCell.Tab.0.bottom" timestamp="1591865534088">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="220" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591533683205" />
-    <state width="1899" height="220" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591358737007" />
-    <state width="1899" height="220" key="GridCell.Tab.0.center" timestamp="1591533683205">
+    <state width="1899" height="376" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1591767629145" />
+    <state width="1899" height="227" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591794673678" />
+    <state width="1899" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591865534088" />
+    <state width="1899" height="348" key="GridCell.Tab.0.center" timestamp="1591865534088">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="220" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591533683205" />
-    <state width="1899" height="220" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591358737007" />
-    <state width="1899" height="220" key="GridCell.Tab.0.left" timestamp="1591533683205">
+    <state width="1899" height="376" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1591767629145" />
+    <state width="1899" height="227" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591794673678" />
+    <state width="1899" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591865534088" />
+    <state width="1899" height="348" key="GridCell.Tab.0.left" timestamp="1591865534088">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="220" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591533683205" />
-    <state width="1899" height="220" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591358737007" />
-    <state width="1899" height="220" key="GridCell.Tab.0.right" timestamp="1591533683205">
+    <state width="1899" height="376" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1591767629145" />
+    <state width="1899" height="227" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591794673678" />
+    <state width="1899" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591865534088" />
+    <state width="1899" height="348" key="GridCell.Tab.0.right" timestamp="1591865534088">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="220" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591533683205" />
-    <state width="1899" height="220" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591358737007" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1591533761981">
+    <state width="1899" height="376" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1591767629145" />
+    <state width="1899" height="227" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591794673678" />
+    <state width="1899" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591865534088" />
+    <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1591865534088">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="162" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591533761981" />
+    <state width="1899" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591865534088" />
+    <state width="1899" height="348" key="GridCell.Tab.1.center" timestamp="1591865534088">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591865534088" />
+    <state width="1899" height="348" key="GridCell.Tab.1.left" timestamp="1591865534088">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591865534088" />
+    <state width="1899" height="348" key="GridCell.Tab.1.right" timestamp="1591865534088">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591865534088" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1591766046750">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="162" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591766046750" />
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1591355584224" />
-    <state x="652" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1591533742816">
+    <state x="652" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1591852233895">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="652" y="344" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591533742816" />
-    <state x="652" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590988837682" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1591350345516">
+    <state x="652" y="344" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1591790635373" />
+    <state x="652" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591852233895" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1591601864552">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1591350345516" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1591601864552" />
   </component>
 </project>
