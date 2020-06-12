@@ -8,11 +8,10 @@ class BuzzerControl:
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.BUZZER, GPIO.OUT)
-    
+
     def turn_on_buzzer(self):
         GPIO.output(self.BUZZER, GPIO.HIGH)
-        sleep(0.1)
+        sleep(0.6)
         GPIO.output(self.BUZZER, GPIO.LOW)
-    
-    def __del__(self):
-        GPIO.cleanup()
+   
+
