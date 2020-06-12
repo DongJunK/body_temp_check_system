@@ -1,27 +1,29 @@
-from threading import Timer,Thread,Event
+from threading import Timer, Thread, Event
+from datetime import datetime
 
 
 class perpetualTimer():
 
-   def __init__(self,t,hFunction):
-      self.t=t
-      self.hFunction = hFunction
-      self.thread = Timer(self.t,self.handle_function)
+    def __init__(self, t, hFunction):
+        self.t = t
+        self.hFunction = hFunction
+        self.thread = Timer(self.t, self.handle_function)
 
-   def handle_function(self):
-      self.hFunction()
-      self.thread = Timer(self.t,self.handle_function)
-      self.thread.start()
+    def handle_function(self):
+        self.hFunction()
+        self.thread = Timer(self.t, self.handle_function)
+        self.thread.start()
 
-   def start(self):
-      self.thread.start()
+    def start(self):
+        self.thread.start()
+        return datetime.datetime.now().timestamp()
 
-   def cancel(self):
-      self.thread.cancel()
+    def cancel(self):
+        self.thread.cancel()
 
-def printer():
-    print ('ipsem lorem')
-
-t = perpetualTimer(5,printer)
-t.start()
-
+# def printer():
+#     print('ipsem lorem')
+#
+#
+# t = perpetualTimer(5, printer)
+# t.start()

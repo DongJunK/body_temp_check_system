@@ -7,6 +7,28 @@ import datetime
 import os
 
 path = os.getcwd() + "\\database.db"
+sql_create_init_table = """ CREATE TABLE IF NOT EXISTS log(
+                                                    id integer PRIMARY KEY,
+                                                    raspberry_pi_serial_number text NOT NULL,
+                                                    student_number INTEGER NOT NULL,
+                                                    temperature text NOT NULL,
+                                                    logtime date INTEGER NOT NULL,
+                                                    Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                                                ); """
+sql_create_student_table = """ CREATE TABLE IF NOT EXISTS student1(
+                                                            student_id integer PRIMARY KEY,
+                                                            student_name text NOT NULL,
+                                                            student_phone text,
+                                                            student_major text NOT NULL
+                                                            ); """
+
+sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
+                                                            id integer PRIMARY KEY,
+                                                            raspberry_number text NOT NULL,
+                                                            build_name text NOT NULL
+                                                            ); """
+
+
 
 class MyApp:
     def __init__(self, master):
@@ -84,20 +106,21 @@ class MyApp:
         for row in self.treeview.get_children():
             self.treeview.delete(row)
 
-        conn = sqlite3.connect('database.db')  # 파일과 연결
-        c = conn.cursor()  # 커서 설정
+        conn = Sql(path)
 
         if '선택' != self.combobox.get():
             if ' 전체목록' == self.combobox.get():
-                c.execute("SELECT * FROM temp")  # temp 테이블 조회
-                tuples = c.fetchall()
+
+                # c.execute("SELECT * FROM temp")  # temp 테이블 조회
+                # tuples = c.fetchall()
+                tuples = conn.get_join_data()
                 for row in tuples:
                     self.treeview.insert("", END, values=row)
-            if ' 의심환자' == self.combobox.get():
-                c.execute("SELECT * FROM temp WHERE temperature>38")
-                tuples = c.fetchall()
-                for row in tuples:
-                    self.treeview.insert("", END, values=row)
+            # if ' 의심환자' == self.combobox.get():
+            #     c.execute("SELECT * FROM temp WHERE temperature>38")
+            #     tuples = c.fetchall()
+            #     for row in tuples:
+            #         self.treeview.insert("", END, values=row)
 
             # 조회 버튼 클릭시 마지막 수정 시간 출력
             self.time_label.configure(text=datetime.datetime.today())
