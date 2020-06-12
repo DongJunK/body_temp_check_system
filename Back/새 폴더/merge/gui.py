@@ -112,9 +112,9 @@ class MyApp:
         conn = Sql(path)
         if '선택' != self.combobox.get():
             if ' 전체목록' == self.combobox.get():
-                # c.execute("SELECT * FROM temp")  # temp 테이블 조회
-                # tuples = c.fetchall()
                 tuples = conn.get_join_data()
+                del conn
+                print(type(tuples[0]))
                 for row in tuples:
                     self.treeview.insert("", END, values=row)
             # if ' 의심환자' == self.combobox.get():
