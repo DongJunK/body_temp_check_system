@@ -112,7 +112,13 @@ class MyApp:
         print(select_student_number)
         sql = Sql(path)
         print(sql.get_student_data(select_student_number))
-        #i = Sql.get_student_data(select_student_number)
+        #i = Sql.get_student_data(select_student_number
+        #
+        # info_window = Toplevel(self.master)
+        #         info_window.title('학사 정보')
+        #         info_window.geometry('300x300')
+        #         info_window.resizable(False, False)
+        #         info_window.mainloop()
 
 window = Tk()
 window.title('교내 출입 기록')
