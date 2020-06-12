@@ -91,7 +91,8 @@ class SQL_Syntax:
     def get_join_data(self):
         db_cursor = self.db_conn.cursor()
         sql_syntax = "SELECT A.build_name, A.student_number, S.student_name, A.temperature, A.logtime  " \
-                     "FROM (log  as L JOIN raspberry AS R)AS A JOIN student1 AS S  ON L.raspberry_pi_serial_number = R.raspberry_number AND A.student_number = S.student_id"
+                     "FROM (log  as L JOIN raspberry AS R)AS A JOIN student1 AS S  ON L.raspberry_pi_serial_number = R.raspberry_number AND A.student_number = S.student_id" \
+                     " ORDER BY A.logtime DESC"
         return self.Try_Except(db_cursor, inspect.stack()[0][3], sql_syntax)
 
 
