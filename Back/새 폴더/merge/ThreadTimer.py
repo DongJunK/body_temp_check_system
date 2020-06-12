@@ -24,4 +24,3 @@ def printer():
 
 t = perpetualTimer(5,printer)
 t.start()
-hello
