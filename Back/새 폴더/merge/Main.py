@@ -56,7 +56,8 @@ def getData():
     del db_query
 
 if __name__ == '__main__':
-    timer = threadTimer(5, getData)
-    start_time = timer.start()
+    # timer = threadTimer(5, getData)
+    # start_time = timer.start()
+    getData()
     # if (datetime.datetime.now().timestamp() - start_time)/60 > 1 :
     #     timer.cancel()

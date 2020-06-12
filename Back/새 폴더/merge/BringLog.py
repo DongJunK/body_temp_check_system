@@ -34,3 +34,7 @@ class GetLog:
         #print(resp_body["data"])
         #print(resp_body)
         return resp_body["data"]
+
+if __name__ == '__main__':
+    a = GetLog(None)
+    print(a.get_log_list())
