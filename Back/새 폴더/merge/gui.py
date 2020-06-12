@@ -116,8 +116,8 @@ class MyApp:
                 tuples = conn.get_join_data()
                 for row in tuples:
                     self.treeview.insert("", END, values=row)
-            # if ' 의심환자' == self.combobox.get():
-            #     c.execute("SELECT * FROM temp WHERE temperature>38")
+            # if ' 의심환자' == self.combobox.get():   ca
+            #     c.execute("SELECT * FROM temp WHERE tem, ㅕㅓrature>38")
             #     tuples = c.fetchall()
             #     for row in tuples:
             #         self.treeview.insert("", END, values=row)
