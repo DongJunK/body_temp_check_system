@@ -16,7 +16,6 @@ class perpetualTimer():
 
     def start(self):
         self.thread.start()
-        return datetime.datetime.now().timestamp()
 
     def cancel(self):
         self.thread.cancel()

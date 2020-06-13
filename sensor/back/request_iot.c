@@ -70,7 +70,7 @@ int send_log(char* rasp_id, char* person_id, char* temp)
 		return -1;
 	}
 
-	rc = im_send_strdata("test", send_data, 0);
+	rc = im_send_strdata("tempInfo", send_data, 0);
 	if ( rc < 0  )	{
 		printf("ErrCode[%d]\n", im_get_LastErrCode());
 	}
