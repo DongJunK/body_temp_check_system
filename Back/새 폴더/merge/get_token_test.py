@@ -3,26 +3,30 @@ import base64
 import json
 
 class GetToken():
+	iot_info = None
+	json_file = None
 
-	def getInfo(self):
-		global iot_info
-		with open('./config/iot_config.json','r') as f:
-			iot_info = json.load(f)
+	def __init__(self):
+		with open('./config/iot_config.json', 'r') as self.json_file:
+			self.iot_info = json.load(self.json_file)
+
+	def __del__(self):
+		self.json_file.close()
 
 	def req(self):
-		appId = iot_info['appId']
-		secret = iot_info['secret']
-		userId = "'"+iot_info['userId']+"'"
-		userPW = "'"+iot_info['userPW']+"'"
+		appId = self.iot_info['appId']
+		secret = self.iot_info['secret']
+		userId = "'"+self.iot_info['userId']+"'"
+		userPW = "'"+self.iot_info['userPW']+"'"
 		data = {
 			'grant_type':'password',
 			'username':userId,
 			'password':userPW
 		}
-		print(appId)
-		print(secret)
-		print(userId)
-		print(userPW)
+		# print(appId)
+		# print(secret)
+		# print(userId)
+		# print(userPW)
 
 		send = appId + ':' + secret
 		send_encode = send.encode('UTF-8')
@@ -43,7 +47,10 @@ class GetToken():
 		url = API_HOST + '?from=1577804400000&to=1590678000000'
 		result = requests.get(url, headers=headers)
 		return result.json()
-#
-# getInfo()
-# result = req_test()
-# print(result)
+
+
+
+if __name__ == '__main__':
+	a = GetToken()
+	print(a.req())
+	print(a.req_test())
