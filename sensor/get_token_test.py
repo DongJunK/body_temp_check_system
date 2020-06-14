@@ -3,7 +3,7 @@ import base64
 import json
 def getInfo():
 	global iot_info
-	with open('./config/iot_config.json','r') as f:
+	with open('./config/iot_id_config.json','r') as f:
 		iot_info = json.load(f)
 
 def req():
@@ -34,9 +34,10 @@ def req():
 
 def req_test():
 	token = req()
+	print(token)
 	headers = {'Authorization':'Bearer ' + token['access_token']}
 	API_HOST = 'https://iotmakers.kt.com:443/api/v1/streams/iot/log'
-
+	
 	url = API_HOST + '?from=1577804400000&to=1590678000000'
 	result = requests.get(url, headers=headers)
 	return result.json()

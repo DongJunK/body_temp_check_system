@@ -39,11 +39,10 @@ def run():
 	sendLog = SendLog()
 	tempControl = TempControl()
 	ledControl = LedControl()
-
+	buzzerControl = BuzzerControl()
 	while True:
 		print("start")
 		qrReader = QrReader()
-		buzzerControl = BuzzerControl()
 		ledControl.turn_off_green()
 		ledControl.turn_off_red()
 		send_temp = tempControl.get_temp()
