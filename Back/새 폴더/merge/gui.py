@@ -100,7 +100,7 @@ class MyApp:
         self.treeview.column('2', anchor='c', width=150)
         self.treeview.heading('2', text='학번')
         self.treeview.column('3', anchor='c', width=150)
-        self.treeview.heading('3', text='이름')
+        self.treeview.heading('3', text='성명')
         self.treeview.column('4', anchor='c', width=150)
         self.treeview.heading('4', text='체온')
         self.treeview.column('5', anchor='c')
@@ -133,21 +133,33 @@ class MyApp:
         item = self.treeview.selection()[0]
         num = int(item[1:], 16) # 16진수를 10진수로 변경
         info = self.allData[num-1]
-        print(info)
 
         # select_student_number = self.treeview.item(item).get('values')[0]
         # print(select_student_number)
 
-        info_window = Toplevel(self.master)
+        info_window = Toplevel()
         info_window.title('학사 정보')
         info_window.geometry('300x300')
         info_window.resizable(False, False)
-        info_window.mainloop()
 
         info_id = Label(info_window, text='학번')
         student_id = Label(info_window, text=info[1])
         info_id.grid(row=0, column=0)
-        student_id = Label(info_window)
+        student_id.grid(row=0, column=1)
+        info_name = Label(info_window, text='성명')
+        student_name = Label(info_window, text=info[2])
+        info_name.grid(row=0, column=2)
+        student_name.grid(row=0, column=3)
+        info_major = Label(info_window, text='소속전공')
+        student_major = Label(info_window, text=info[6])
+        info_major.grid(row=1, column=0)
+        student_major.grid(row=1, column=1)
+        info_phone = Label(info_window, text='전화번호')
+        student_phone = Label(info_window, text=info[5])
+        info_phone.grid(row=2, column=0)
+        student_phone.grid(row=2, column=1)
+
+        info_window.mainloop()
 
 window = Tk()
 window.title('교내 출입 기록')
