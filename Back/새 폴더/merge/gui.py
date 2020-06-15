@@ -8,6 +8,7 @@ from BringLog import GetLog as Log
 from ThreadTimer import perpetualTimer as threadTimer
 import datetime
 import os
+from tkinter import messagebox as tmb
 
 path = os.getcwd() + "\\database.db"
 sql_create_init_table = """ CREATE TABLE IF NOT EXISTS log(
@@ -115,6 +116,12 @@ class MyApp:
         self.treeview.heading('5', text='출입 시간')
 
     def click_search(self):
+        print(self.calendar.get())
+        print(self.allData[0][4][:10])
+        for i in self.allData:
+            
+
+        self.allData
         for row in self.treeview.get_children():
             self.treeview.delete(row)
 
@@ -182,6 +189,10 @@ class MyApp:
     def autoUpdate(self):
         self.getData()
         self.click_search()
+
+    # def close_app(self):
+    #     if tmb.askokcancel("Close", "Are you sure...?"):
+    #         self.destroy()
 
 if __name__ == '__main__':
     window = Tk()
