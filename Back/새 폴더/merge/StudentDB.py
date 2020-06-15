@@ -10,7 +10,7 @@ import os
 class Student:
     conn = None
     path = os.getcwd() + "\\database.db"
-    sql_create_student_table = """ CREATE TABLE IF NOT EXISTS student(
+    sql_create_student_table = """ CREATE TABLE IF NOT EXISTS student1(
                                                                 student_id integer PRIMARY KEY,
                                                                 student_name text NOT NULL,
                                                                 student_phone text,
