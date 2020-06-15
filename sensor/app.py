@@ -46,6 +46,9 @@ def run():
 		ledControl.turn_off_green()
 		ledControl.turn_off_red()
 		send_temp = tempControl.get_temp()
+		send_temp_float = float(send_temp) + 1.5
+		send_temp = str(round(send_temp_float,2)) 
+		
 		print(send_temp)
 		if float(send_temp) < 30:
 			continue
@@ -54,7 +57,7 @@ def run():
 			ledControl.turn_on_green()
 		else:
 			ledControl.turn_on_red()
-		
+		buzzerControl.turn_on_buzzer()	
 		send_person_id = qrReader.getQrCode()
 		qrReader.release()
 		if send_person_id == "False":
@@ -69,6 +72,7 @@ def run():
 		buzzerControl.turn_on_buzzer()
 		sendLog.send_log(rasp_id, send_person_id, send_temp)
 	del ledControl
+	del buzzerControl
 
 if __name__ == '__main__':
     init()
