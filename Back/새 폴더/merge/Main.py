@@ -33,11 +33,6 @@ sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
 
 
 def getData():
-    parse_class = Parsing(path)
-
-    # database = ConnDB(path)  # Initialization(Constructor)
-    # db_conn = database.set_create_connection()  # DataBase Connection
-
     db_query = SQL_Syntax(path)  # Initialization(Constructor)
     db_query.setCreateTable(sql_create_init_table, sql_create_student_table, sql_create_raspberry_table)  # Table Create
 
@@ -46,13 +41,6 @@ def getData():
     log_list = get_log_class.get_log_list()  # Bring log return type is list
 
     print(log_list)
-
-    latest_log_datetime = parse_class.data_normalization(log_list)
-    # print(latest_log_datetime)
-    # print(time.mktime(latest_log_datetime.timetuple()))
-    # print(db_query.get_All_data())  # Current Table print
-
-    # del db_conn  # DataBase Connection Close (destructor)
     del db_query
 
 if __name__ == '__main__':
