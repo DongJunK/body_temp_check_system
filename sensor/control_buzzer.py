@@ -10,8 +10,11 @@ class BuzzerControl:
         GPIO.setup(self.BUZZER, GPIO.OUT)
 
     def turn_on_buzzer(self):
-        GPIO.output(self.BUZZER, GPIO.HIGH)
-        sleep(0.6)
-        GPIO.output(self.BUZZER, GPIO.LOW)
-   
+        scale = GPIO.PWM(self.BUZZER, 523)
+        scale.start(10)
+        sleep(0.5)
+        scale.stop()
+
+    def __del__(self):
+        GPIO.cleanup()
 
