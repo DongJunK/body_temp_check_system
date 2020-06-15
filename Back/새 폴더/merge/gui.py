@@ -44,7 +44,7 @@ class MyApp:
 
         # 데이터베이스 테이블
         self.table_frame = Frame(self.master)
-        self.table_frame.place(x=30, y=60)
+        self.table_frame.place(x=30, y=50)
 
         self.scrollbar = ttk.Scrollbar(self.table_frame)
         self.treeview = ttk.Treeview(self.table_frame, yscrollcommand=self.scrollbar.set)
@@ -54,25 +54,20 @@ class MyApp:
         self.treeview.pack()
 
         # [달력] 날짜
-        self.calendar_frame = Frame(self.master)
-        self.calendar_frame.place(x=30, y=25)
+        self.calendar_img = PhotoImage(file='calendar_resize.png')
+        self.calendar_label = Label(self.master, image=self.calendar_img)
+        self.calendar_label.place(x=30, y=15)
 
-        self.calendar_img = PhotoImage(file='83-calendar-icon.png')
-        self.calendar_label = Label(self.calendar_frame, image=self.calendar_img)
-        self.calendar_label.grid(row=0, column=0)
-
-        self.calendar = DateEntry(self.calendar_frame, width=10, bg="darkblue", fg="white", date_pattern='yyyy-mm-dd', justify=CENTER)
-        self.calendar.grid(row=0, column=1)
+        self.calendar = DateEntry(self.master, width=10, bg="darkblue", fg="white", date_pattern='yyyy-mm-dd', justify=CENTER)
+        self.calendar.place(x=63, y=23)
 
         # ['전체목록', '의심환자'] 조회
-        self.search_frame = Frame(self.master)
-        self.combobox = ttk.Combobox(self.calendar_frame, width=10,  height=2) # postcommand, justify=CENTER
+        self.combobox = ttk.Combobox(self.master, width=8,  height=2) # postcommand, justify=CENTER
         self.combobox['values'] = (' 전체목록', ' 의심환자')
         self.combobox.set(' 전체목록') # 선택
-        self.search_button = Button(self.search_frame, text='Q 조회', command=self.click_search)
-        self.combobox.grid(row=0, column=2)
-        self.search_button.grid(row=0, column=1)
-        self.search_frame.place(x=780, y=30)
+        self.search_button = Button(self.master, text='Q 조회', command=self.click_search)
+        self.combobox.place(x=697, y=23)
+        self.search_button.place(x=780, y=20)
 
         self.combobox.current(0) # Add
 
@@ -82,7 +77,7 @@ class MyApp:
 
         # 마지막 수정 시간
         self.time_frame = Frame(self.master)
-        self.time_frame.place(x=610, y=290)
+        self.time_frame.place(x=610, y=280)
         self.text_label = Label(self.time_frame, text='마지막 수정 시간')
         self.time_label = Label(self.time_frame, text='-')
         self.text_label.grid(row=0, column=0)
@@ -134,7 +129,6 @@ class MyApp:
                 for row in data:
                     try:
                         if float(row[3]) > 38.0:
-                            #self.patientData.append(row)
                             self.treeview.insert("", END, values=row)
                     except ValueError as v:
                         print(v)
@@ -150,28 +144,28 @@ class MyApp:
         sql = Sql(path)
         info = sql.get_student_data(select_student_number)
         del sql
-
+        
         info_window = Toplevel()
         info_window.title('학사 정보')
-        info_window.geometry('300x300')
+        info_window.geometry('300x100')
         info_window.resizable(False, False)
 
         info_id = Label(info_window, text='학번')
-        student_id = Label(info_window, text=info[0][0])
+        student_id = Label(info_window, text=info[0][0], width=20)
         info_id.grid(row=0, column=0)
         student_id.grid(row=0, column=1)
         info_name = Label(info_window, text='성명')
-        student_name = Label(info_window, text=info[0][1])
-        info_name.grid(row=0, column=2)
-        student_name.grid(row=0, column=3)
+        student_name = Label(info_window, text=info[0][1], bg='white', width=20)
+        info_name.grid(row=1, column=0)
+        student_name.grid(row=1, column=1)
         info_major = Label(info_window, text='소속전공')
-        student_major = Label(info_window, text=info[0][2])
-        info_major.grid(row=1, column=0)
-        student_major.grid(row=1, column=1)
+        student_major = Label(info_window, text=info[0][2], width=20)
+        info_major.grid(row=2, column=0)
+        student_major.grid(row=2, column=1)
         info_phone = Label(info_window, text='전화번호')
-        student_phone = Label(info_window, text=info[0][3])
-        info_phone.grid(row=2, column=0)
-        student_phone.grid(row=2, column=1)
+        student_phone = Label(info_window, text=info[0][3], width=20)
+        info_phone.grid(row=3, column=0)
+        student_phone.grid(row=3, column=1)
 
         info_window.mainloop()
 
@@ -211,7 +205,7 @@ class MyApp:
 if __name__ == '__main__':
     window = Tk()
     window.title('교내 출입 기록')
-    window.geometry("870x350")
+    window.geometry("870x340")
     window.resizable(False, False)
     my_App = MyApp(window)
     timer = threadTimer(5, lambda : my_App.autoUpdate())
