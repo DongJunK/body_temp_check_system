@@ -34,7 +34,6 @@ sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
 
 class MyApp:
     allData = None
-    #patientData = []
 
     def __init__(self, master):
 
@@ -126,7 +125,6 @@ class MyApp:
                 for row in self.allData:
                     try:
                         if float(row[3]) > 38.0:
-                            #self.patientData.append(row)
                             self.treeview.insert("", END, values=row)
                     except ValueError as v:
                         print(v)
