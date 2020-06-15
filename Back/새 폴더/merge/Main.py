@@ -37,10 +37,11 @@ def getData():
     db_query.setCreateTable(sql_create_init_table, sql_create_student_table, sql_create_raspberry_table)  # Table Create
 
     last_update = db_query.get_last_log_timestamp()  # Get latest log datetime in Table return type is datetime
-    get_log_class = Log(last_update)  # Bring log to IoT Makers parameter is start date
-    log_list = get_log_class.get_log_list()  # Bring log return type is list
+    log = Log(last_update)  # Bring log to IoT Makers parameter is start date
+    log_list = log.get_log_list()  # Bring log return type is list
+    par = Parsing(path)
+    data = par.db_insert(log_list)
 
-    print(log_list)
     del db_query
 
 if __name__ == '__main__':

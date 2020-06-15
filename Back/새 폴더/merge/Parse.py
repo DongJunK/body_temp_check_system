@@ -11,7 +11,7 @@ class Parsing:
     def __init__(self, path):
         self.path = path
 
-    def db_insert(self, par_form):
+    def db_error(self, par_form):
         parse = par_form.split("_")
         if len(parse) != 4:  # Data Form Checking
             if len(parse) < 4:
@@ -29,11 +29,11 @@ class Parsing:
                 print("ERROR")
             del insert
 
-    def data_normalization(self, log):
-        del log[0]
+    def db_insert(self, log):
         latest = None
-        if len(log) != 0:
+        if log is not None and len(log) != 0:
             for dic in log:
+                #print(dic)
                 log_time = dic.get('occDt')
                 log_data_key = list(dic.get('attributes').keys())[0]  # get Data whatever TagStream;
                 log_data = dic.get('attributes').get(log_data_key)
@@ -41,7 +41,7 @@ class Parsing:
 
                 # log_data = dic.get('attributes').get('TagStream') # Limited by TagStream name
                 if log_time is not None and log_data is not None:
-                    self.db_insert(log_data + '_' + log_time)
+                    self.db_error(log_data + '_' + log_time)
                     log_datetime = datetime.datetime.strptime(log_time, '%Y-%m-%d %H:%M:%S.%f')
                     if latest is None or latest < log_datetime:
                         latest = log_datetime
