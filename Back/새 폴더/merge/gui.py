@@ -121,7 +121,7 @@ class MyApp:
         for i in self.allData:
             
 
-        self.allData
+        #self.allData
         for row in self.treeview.get_children():
             self.treeview.delete(row)
 
