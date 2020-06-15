@@ -3,6 +3,9 @@ from tkinter import *
 from tkcalendar import *
 from tkinter import ttk
 from SQL import SQL_Syntax as Sql
+from Parse import Parsing
+from BringLog import GetLog as Log
+from ThreadTimer import perpetualTimer as threadTimer
 import datetime
 import os
 
@@ -33,6 +36,7 @@ class MyApp:
     allData = None
 
     def __init__(self, master):
+
         self.master = master
 
         # 데이터베이스 테이블
@@ -110,9 +114,7 @@ class MyApp:
         for row in self.treeview.get_children():
             self.treeview.delete(row)
 
-        conn = Sql(path)
         if '선택' != self.combobox.get():
-            self.allData = conn.get_join_data()
             if ' 전체목록' == self.combobox.get():
                 for row in self.allData:
                     self.treeview.insert("", END, values=row)
@@ -123,7 +125,6 @@ class MyApp:
                             self.treeview.insert("", END, values=row)
                     except ValueError as v:
                         print(v)
-            del conn
 
             # 조회 버튼 클릭시 마지막 수정 시간 출력
             last_time = str(datetime.datetime.today())
@@ -131,6 +132,7 @@ class MyApp:
 
     def OnDoubleClick(self, event):
         item = self.treeview.selection()[0]
+        print(self.treeview.selection())
         num = int(item[1:], 16) # 16진수를 10진수로 변경
         info = self.allData[num-1]
         print(info)
@@ -149,12 +151,30 @@ class MyApp:
         info_id.grid(row=0, column=0)
         student_id = Label(info_window)
 
-window = Tk()
-window.title('교내 출입 기록')
-window.geometry("870x350")
-window.resizable(False, False)
-MyApp(window)
+    def getData(self):
+        db_query = Sql(path)  # Initialization(Constructor)
+        db_query.setCreateTable(sql_create_init_table, sql_create_student_table,
+                                sql_create_raspberry_table)  # Table Create
+        self.allData = db_query.get_join_data()
+        last_update = db_query.get_last_log_timestamp()  # Get latest log datetime in Table return type is datetime
+        log = Log(last_update)  # Bring log to IoT Makers parameter is start date
+        log_list = log.get_log_list()  # Bring log return type is list
+        par = Parsing(path)
+        data = par.db_insert(log_list)
+        del db_query
 
-window.mainloop()
+    def autoUpdate(self):
+        self.getData()
+        self.click_search()
+
+if __name__ == '__main__':
+    window = Tk()
+    window.title('교내 출입 기록')
+    window.geometry("870x350")
+    window.resizable(False, False)
+    my_App = MyApp(window)
+    timer = threadTimer(5, lambda : my_App.autoUpdate())
+    timer.start()
+    window.mainloop()
 
 

@@ -50,7 +50,7 @@ class GetToken():
 
 
 
-if __name__ == '__main__':
-	a = GetToken()
-	print(a.req())
-	print(a.req_test())
+# if __name__ == '__main__':
+# 	a = GetToken()
+# 	print(a.req())
+# 	print(a.req_test())
