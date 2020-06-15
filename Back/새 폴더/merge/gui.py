@@ -34,6 +34,7 @@ sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
 
 class MyApp:
     allData = None
+    #patientData = []
 
     def __init__(self, master):
 
@@ -74,7 +75,8 @@ class MyApp:
         self.combobox.current(0) # Add
 
         # treeview click
-        self.treeview.bind("<Double-1>", self.OnDoubleClick)
+        # self.treeview.bind("<Double-1>", self.OnDoubleClick)
+        self.treeview.bind("<<TreeviewSelect>>", self.OnDoubleClick)
 
         # 마지막 수정 시간
         self.time_frame = Frame(self.master)
@@ -96,6 +98,8 @@ class MyApp:
         self.logText_label.grid(row=1, column=0)
         self.logTime_Label.grid(row=1, column=1)
 
+        self.autoUpdate()
+
     def attribute(self):
         self.treeview['columns'] = ['1', '2', '3', '4', '5']
         self.treeview['show'] = 'headings'
@@ -104,7 +108,7 @@ class MyApp:
         self.treeview.column('2', anchor='c', width=150)
         self.treeview.heading('2', text='학번')
         self.treeview.column('3', anchor='c', width=150)
-        self.treeview.heading('3', text='이름')
+        self.treeview.heading('3', text='성명')
         self.treeview.column('4', anchor='c', width=150)
         self.treeview.heading('4', text='체온')
         self.treeview.column('5', anchor='c')
@@ -122,6 +126,7 @@ class MyApp:
                 for row in self.allData:
                     try:
                         if float(row[3]) > 38.0:
+                            #self.patientData.append(row)
                             self.treeview.insert("", END, values=row)
                     except ValueError as v:
                         print(v)
@@ -132,24 +137,35 @@ class MyApp:
 
     def OnDoubleClick(self, event):
         item = self.treeview.selection()[0]
-        print(self.treeview.selection())
-        num = int(item[1:], 16) # 16진수를 10진수로 변경
-        info = self.allData[num-1]
-        print(info)
+        select_student_number = self.treeview.item(item).get('values')[1]
 
-        # select_student_number = self.treeview.item(item).get('values')[0]
-        # print(select_student_number)
+        sql = Sql(path)
+        info = sql.get_student_data(select_student_number)
+        del sql
 
-        info_window = Toplevel(self.master)
+        info_window = Toplevel()
         info_window.title('학사 정보')
         info_window.geometry('300x300')
         info_window.resizable(False, False)
-        info_window.mainloop()
 
         info_id = Label(info_window, text='학번')
-        student_id = Label(info_window, text=info[1])
+        student_id = Label(info_window, text=info[0][0])
         info_id.grid(row=0, column=0)
-        student_id = Label(info_window)
+        student_id.grid(row=0, column=1)
+        info_name = Label(info_window, text='성명')
+        student_name = Label(info_window, text=info[0][1])
+        info_name.grid(row=0, column=2)
+        student_name.grid(row=0, column=3)
+        info_major = Label(info_window, text='소속전공')
+        student_major = Label(info_window, text=info[0][2])
+        info_major.grid(row=1, column=0)
+        student_major.grid(row=1, column=1)
+        info_phone = Label(info_window, text='전화번호')
+        student_phone = Label(info_window, text=info[0][3])
+        info_phone.grid(row=2, column=0)
+        student_phone.grid(row=2, column=1)
+
+        info_window.mainloop()
 
     def getData(self):
         db_query = Sql(path)  # Initialization(Constructor)
