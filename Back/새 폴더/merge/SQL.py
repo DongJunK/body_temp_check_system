@@ -71,8 +71,6 @@ class SQL_Syntax:
         db_cursor = self.db_conn.cursor()
         return self.Try_Except(db_cursor, inspect.stack()[0][3], sql_syntax)
 
-    # def get_data_using_date(self, date):
-
 
     def insert_tempTable(self, list):
         db_cursor = self.db_conn.cursor()

@@ -8,6 +8,7 @@ from BringLog import GetLog as Log
 from ThreadTimer import perpetualTimer as threadTimer
 import datetime
 import os
+from re import search
 from tkinter import messagebox as tmb
 
 path = os.getcwd() + "\\database.db"
@@ -116,21 +117,20 @@ class MyApp:
         self.treeview.heading('5', text='출입 시간')
 
     def click_search(self):
-        print(self.calendar.get())
-        print(self.allData[0][4][:10])
+        data = []
         for i in self.allData:
-            
+            if search(self.calendar.get(), i[4][:10]):
+                data.append(i)
 
-        self.allData
         for row in self.treeview.get_children():
             self.treeview.delete(row)
 
         if '선택' != self.combobox.get():
             if ' 전체목록' == self.combobox.get():
-                for row in self.allData:
+                for row in data:
                     self.treeview.insert("", END, values=row)
             if ' 의심환자' == self.combobox.get():
-                for row in self.allData:
+                for row in data:
                     try:
                         if float(row[3]) > 38.0:
                             #self.patientData.append(row)
@@ -189,10 +189,6 @@ class MyApp:
     def autoUpdate(self):
         self.getData()
         self.click_search()
-
-    # def close_app(self):
-    #     if tmb.askokcancel("Close", "Are you sure...?"):
-    #         self.destroy()
 
 if __name__ == '__main__':
     window = Tk()
