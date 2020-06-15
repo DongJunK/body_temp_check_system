@@ -31,6 +31,7 @@ sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
 
 class MyApp:
     allData = None
+    patientData = []
 
     def __init__(self, master):
         self.master = master
@@ -120,6 +121,7 @@ class MyApp:
                 for row in self.allData:
                     try:
                         if float(row[3]) > 38.0:
+                            self.patientData.append(row)
                             self.treeview.insert("", END, values=row)
                     except ValueError as v:
                         print(v)
@@ -131,8 +133,12 @@ class MyApp:
 
     def OnDoubleClick(self, event):
         item = self.treeview.selection()[0]
-        num = int(item[1:], 16) # 16진수를 10진수로 변경
-        info = self.allData[num-1]
+        num = int(item[1:], 16)  # 16진수를 10진수로 변경
+        if ' 전체목록' == self.combobox.get():
+            info = self.allData[num-1]
+        if ' 의심환자' == self.combobox.get():
+            info = self.patientData[num-1]
+        print(num-1)
 
         # select_student_number = self.treeview.item(item).get('values')[0]
         # print(select_student_number)
@@ -160,6 +166,7 @@ class MyApp:
         student_phone.grid(row=2, column=1)
 
         info_window.mainloop()
+
 
 window = Tk()
 window.title('교내 출입 기록')
