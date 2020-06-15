@@ -16,8 +16,8 @@ class GetToken():
 	def req(self):
 		appId = self.iot_info['appId']
 		secret = self.iot_info['secret']
-		userId = "'"+self.iot_info['userId']+"'"
-		userPW = "'"+self.iot_info['userPW']+"'"
+		userId = self.iot_info['userId']
+		userPW = self.iot_info['userPW']
 		data = {
 			'grant_type':'password',
 			'username':userId,
