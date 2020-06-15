@@ -9,6 +9,7 @@ from ThreadTimer import perpetualTimer as threadTimer
 import datetime
 import os
 from re import search
+import sys
 from tkinter import messagebox as tmb
 
 path = os.getcwd() + "\\database.db"
@@ -36,7 +37,6 @@ sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
 
 class MyApp:
     allData = None
-    #patientData = []
 
     def __init__(self, master):
 
@@ -101,6 +101,7 @@ class MyApp:
         self.logTime_Label.grid(row=1, column=1)
 
         self.autoUpdate()
+        self.click_search()
 
     def attribute(self):
         self.treeview['columns'] = ['1', '2', '3', '4', '5']
@@ -178,17 +179,34 @@ class MyApp:
         db_query = Sql(path)  # Initialization(Constructor)
         db_query.setCreateTable(sql_create_init_table, sql_create_student_table,
                                 sql_create_raspberry_table)  # Table Create
-        self.allData = db_query.get_join_data()
+        dbData = db_query.get_join_data()
         last_update = db_query.get_last_log_timestamp()  # Get latest log datetime in Table return type is datetime
         log = Log(last_update)  # Bring log to IoT Makers parameter is start date
         log_list = log.get_log_list()  # Bring log return type is list
         par = Parsing(path)
         data = par.db_insert(log_list)
         del db_query
+        if self.allData is None:
+            self.allData = dbData
+        else:
+            if len(self.allData) == len(dbData):
+                return None
+            else:
+                sub = len(dbData) - len(self.allData)
+                self.allData = dbData
+                return dbData[0:sub]
+
 
     def autoUpdate(self):
-        self.getData()
-        self.click_search()
+        new_data = self.getData()
+        if new_data is not None:
+            for item in new_data:
+                if self.combobox.get() == " 의심환자":
+                    if 37.5 < float(item[3]) and search(self.calendar.get(), item[4][:10]):
+                        self.treeview.insert("", 0, values=item)
+                elif search(self.calendar.get(), item[4][:10]):
+                    self.treeview.insert("", 0, values=item)
+
 
 if __name__ == '__main__':
     window = Tk()
