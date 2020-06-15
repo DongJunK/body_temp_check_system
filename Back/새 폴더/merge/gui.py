@@ -29,7 +29,6 @@ sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
                                                             ); """
 
 
-
 class MyApp:
     allData = None
 
