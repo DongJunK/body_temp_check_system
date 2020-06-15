@@ -29,8 +29,9 @@ sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
                                                             ); """
 
 
-
 class MyApp:
+    allData = None
+
     def __init__(self, master):
         self.master = master
 
@@ -80,26 +81,27 @@ class MyApp:
         self.time_label.grid(row=0, column=1)
 
         # 최근 로그 시간 get_last_log_timestamp()
-        #conn = sqlite3.connect('database.db')  # 파일과 연결
-        #c = conn.cursor()  # 커서 설정
-        #c.execute("SELECT LogTime FROM temp ORDER BY LogTime DESC")  # DESC 내림차순 정렬
-        #log_time = str(c.fetchone()) log_time[2:21]
+        conn = Sql(path)
+        log_time = str(conn.get_last_log_timestamp())
+        if conn.get_last_log_timestamp() is None:
+            log_time = '-'
+        del conn
 
         self.logText_label = Label(self.time_frame, text='최근 로그 시간')
-        #self.logTime_Label = Label(self.time_frame, text=)
+        self.logTime_Label = Label(self.time_frame, text=log_time[:19])
         self.logText_label.grid(row=1, column=0)
-        #self.logTime_Label.grid(row=1, column=1)
+        self.logTime_Label.grid(row=1, column=1)
 
     def attribute(self):
         self.treeview['columns'] = ['1', '2', '3', '4', '5']
         self.treeview['show'] = 'headings'
-        self.treeview.column('1', anchor='c', width=140)  # anchor='c' 가운데 정렬
+        self.treeview.column('1', anchor='c', width=150)  # anchor='c' 가운데 정렬
         self.treeview.heading('1', text="출입 장소")
-        self.treeview.column('2', anchor='c', width=140)
+        self.treeview.column('2', anchor='c', width=150)
         self.treeview.heading('2', text='학번')
-        self.treeview.column('3', anchor='c', width=140)
+        self.treeview.column('3', anchor='c', width=150)
         self.treeview.heading('3', text='이름')
-        self.treeview.column('4', anchor='c', width=140)
+        self.treeview.column('4', anchor='c', width=150)
         self.treeview.heading('4', text='체온')
         self.treeview.column('5', anchor='c')
         self.treeview.heading('5', text='출입 시간')
@@ -108,20 +110,20 @@ class MyApp:
         for row in self.treeview.get_children():
             self.treeview.delete(row)
 
-
         conn = Sql(path)
         if '선택' != self.combobox.get():
+            self.allData = conn.get_join_data()
             if ' 전체목록' == self.combobox.get():
-                tuples = conn.get_join_data()
-                del conn
-                print(type(tuples[0]))
-                for row in tuples:
+                for row in self.allData:
                     self.treeview.insert("", END, values=row)
-            # if ' 의심환자' == self.combobox.get():   ca
-            #     c.execute("SELECT * FROM temp WHERE tem, ㅕㅓrature>38")
-            #     tuples = c.fetchall()
-            #     for row in tuples:
-            #         self.treeview.insert("", END, values=row)
+            if ' 의심환자' == self.combobox.get():
+                for row in self.allData:
+                    try:
+                        if float(row[3]) > 38.0:
+                            self.treeview.insert("", END, values=row)
+                    except ValueError as v:
+                        print(v)
+            del conn
 
             # 조회 버튼 클릭시 마지막 수정 시간 출력
             last_time = str(datetime.datetime.today())
@@ -129,17 +131,23 @@ class MyApp:
 
     def OnDoubleClick(self, event):
         item = self.treeview.selection()[0]
-        select_student_number = self.treeview.item(item).get('values')[2]
-        print(select_student_number)
-        sql = Sql(path)
-        print(sql.get_student_data(select_student_number))
-        #i = Sql.get_student_data(select_student_number
-        #
-        # info_window = Toplevel(self.master)
-        #         info_window.title('학사 정보')
-        #         info_window.geometry('300x300')
-        #         info_window.resizable(False, False)
-        #         info_window.mainloop()
+        num = int(item[1:], 16) # 16진수를 10진수로 변경
+        info = self.allData[num-1]
+        print(info)
+
+        # select_student_number = self.treeview.item(item).get('values')[0]
+        # print(select_student_number)
+
+        info_window = Toplevel(self.master)
+        info_window.title('학사 정보')
+        info_window.geometry('300x300')
+        info_window.resizable(False, False)
+        info_window.mainloop()
+
+        info_id = Label(info_window, text='학번')
+        student_id = Label(info_window, text=info[1])
+        info_id.grid(row=0, column=0)
+        student_id = Label(info_window)
 
 window = Tk()
 window.title('교내 출입 기록')
