@@ -83,6 +83,10 @@ class MyApp:
         # 최근 로그 시간 get_last_log_timestamp()
         conn = Sql(path)
         log_time = str(conn.get_last_log_timestamp())
+        if conn.get_last_log_timestamp() is None:
+            log_time = '-'
+        del conn
+
         self.logText_label = Label(self.time_frame, text='최근 로그 시간')
         self.logTime_Label = Label(self.time_frame, text=log_time[:19])
         self.logText_label.grid(row=1, column=0)
@@ -126,19 +130,24 @@ class MyApp:
             self.time_label.configure(text=last_time[:19])
 
     def OnDoubleClick(self, event):
+        item = self.treeview.selection()[0]
+        num = int(item[1:], 16) # 16진수를 10진수로 변경
+        info = self.allData[num-1]
+        print(info)
+
+        # select_student_number = self.treeview.item(item).get('values')[0]
+        # print(select_student_number)
+
         info_window = Toplevel(self.master)
         info_window.title('학사 정보')
         info_window.geometry('300x300')
         info_window.resizable(False, False)
         info_window.mainloop()
 
-        item = self.treeview.selection()[0]
-        select_student_number = self.treeview.item(item).get('values')[2]
-        print(select_student_number)
-        sql = Sql(path)
-        print(sql.get_student_data(select_student_number))
-        #i = Sql.get_student_data(select_student_number
-
+        info_id = Label(info_window, text='학번')
+        student_id = Label(info_window, text=info[1])
+        info_id.grid(row=0, column=0)
+        student_id = Label(info_window)
 
 window = Tk()
 window.title('교내 출입 기록')
