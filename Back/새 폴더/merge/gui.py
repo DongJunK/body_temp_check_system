@@ -175,11 +175,14 @@ class MyApp:
                                 sql_create_raspberry_table)  # Table Create
         dbData = db_query.get_join_data()
         last_update = db_query.get_last_log_timestamp()  # Get latest log datetime in Table return type is datetime
+
         log = Log(last_update)  # Bring log to IoT Makers parameter is start date
         log_list = log.get_log_list()  # Bring log return type is list
         par = Parsing(path)
         data = par.db_insert(log_list)
+
         del db_query
+
         if self.allData is None:
             self.allData = dbData
         else:

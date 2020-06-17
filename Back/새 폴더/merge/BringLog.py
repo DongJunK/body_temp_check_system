@@ -26,6 +26,7 @@ class GetLog:
 
         url = API_HOST + path
         if method == 'GET':
+            #Try Exception - requests.exceptions.ConnectionError
             return requests.get(url, headers=headers)
 
     def getToken_json(self, path):
