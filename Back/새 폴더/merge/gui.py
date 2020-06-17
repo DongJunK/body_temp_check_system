@@ -171,8 +171,7 @@ class MyApp:
 
     def getData(self):
         db_query = Sql(path)  # Initialization(Constructor)
-        db_query.setCreateTable(sql_create_init_table, sql_create_student_table,
-                                sql_create_raspberry_table)  # Table Create
+        db_query.setCreateTable(sql_create_init_table)  # Table Create
         dbData = db_query.get_join_data()
         last_update = db_query.get_last_log_timestamp()  # Get latest log datetime in Table return type is datetime
 
