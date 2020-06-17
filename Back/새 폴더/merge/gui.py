@@ -37,6 +37,7 @@ sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
 
 class MyApp:
     allData = None
+    tem = 37.5
 
     def __init__(self, master):
 
@@ -65,7 +66,8 @@ class MyApp:
         self.combobox = ttk.Combobox(self.master, width=8,  height=2) # postcommand, justify=CENTER
         self.combobox['values'] = (' 전체목록', ' 의심환자')
         self.combobox.set(' 전체목록') # 선택
-        self.search_button = Button(self.master, text='Q 조회', command=self.click_search)
+        self.magnifier = PhotoImage(file='magnifier.png')
+        self.search_button = Button(self.master, image=self.magnifier, text='조회', command=self.click_search, compound=LEFT)
         self.combobox.place(x=697, y=23)
         self.search_button.place(x=780, y=20)
 
@@ -121,14 +123,24 @@ class MyApp:
         for row in self.treeview.get_children():
             self.treeview.delete(row)
 
+        self.style = ttk.Style()
+        self.style.map('Treeview', foreground=self.fixed_map('foreground'), background=self.fixed_map('background'))
+        self.treeview.tag_configure('P', background='#ffcbc4') # 의심환자 background color
         if '선택' != self.combobox.get():
             if ' 전체목록' == self.combobox.get():
                 for row in data:
-                    self.treeview.insert("", END, values=row)
+                    try:
+                        if float(row[3]) > self.tem:
+                            self.treeview.insert("", END, values=row, tags='P')
+                        else:
+                            self.treeview.insert("", END, values=row)
+                    except ValueError as v:
+                        print(v)
+
             if ' 의심환자' == self.combobox.get():
                 for row in data:
                     try:
-                        if float(row[3]) > 38.0:
+                        if float(row[3]) > self.tem:
                             self.treeview.insert("", END, values=row)
                     except ValueError as v:
                         print(v)
@@ -136,6 +148,18 @@ class MyApp:
             # 조회 버튼 클릭시 마지막 수정 시간 출력
             last_time = str(datetime.datetime.today())
             self.time_label.configure(text=last_time[:19])
+
+    def fixed_map(self, option):
+        # Fix for setting text colour for Tkinter 8.6.9
+        # From: https://core.tcl.tk/tk/info/509cafafae
+        #
+        # Returns the style map for 'option' with any styles starting with
+        # ('!disabled', '!selected', ...) filtered out.
+
+        # style.map() returns an empty list for missing options, so this
+        # should be future-safe.
+        return [elm for elm in self.style.map('Treeview', query_opt=option) if
+                elm[:2] != ('!disabled', '!selected')]
 
     def OnDoubleClick(self, event):
         item = self.treeview.selection()[0]
@@ -147,25 +171,25 @@ class MyApp:
         
         info_window = Toplevel()
         info_window.title('학사 정보')
-        info_window.geometry('300x100')
+        info_window.geometry('272x105')
         info_window.resizable(False, False)
 
-        info_id = Label(info_window, text='학번')
-        student_id = Label(info_window, text=info[0][0], width=20)
-        info_id.grid(row=0, column=0)
-        student_id.grid(row=0, column=1)
-        info_name = Label(info_window, text='성명')
-        student_name = Label(info_window, text=info[0][1], bg='white', width=20)
-        info_name.grid(row=1, column=0)
-        student_name.grid(row=1, column=1)
-        info_major = Label(info_window, text='소속전공')
-        student_major = Label(info_window, text=info[0][2], width=20)
-        info_major.grid(row=2, column=0)
-        student_major.grid(row=2, column=1)
-        info_phone = Label(info_window, text='전화번호')
-        student_phone = Label(info_window, text=info[0][3], width=20)
-        info_phone.grid(row=3, column=0)
-        student_phone.grid(row=3, column=1)
+        info_id = Label(info_window, text='학   번', width=15, bg='#bdbdbd')
+        student_id = Label(info_window, text=info[0][0], width=20, bg='white')
+        info_id.place(x=5, y=5)
+        student_id.place(x=120, y=5)
+        info_name = Label(info_window, text='성   명', width=15, bg='#bdbdbd')
+        student_name = Label(info_window, text=info[0][1], width=20, bg='white')
+        info_name.place(x=5, y=30)
+        student_name.place(x=120, y=30)
+        info_major = Label(info_window, text='소속전공', width=15, bg='#bdbdbd')
+        student_major = Label(info_window, text=info[0][3], width=20, bg='white')
+        info_major.place(x=5, y=55)
+        student_major.place(x=120, y=55)
+        info_phone = Label(info_window, text='전화번호', width=15, bg='#bdbdbd')
+        student_phone = Label(info_window, text=info[0][2], width=20, bg='white')
+        info_phone.place(x=5, y=80)
+        student_phone.place(x=120, y=80)
 
         info_window.mainloop()
 
@@ -192,7 +216,6 @@ class MyApp:
                 self.allData = dbData
                 return dbData[0:sub]
 
-
     def autoUpdate(self):
         new_data = self.getData()
         if new_data is not None:
@@ -212,6 +235,7 @@ if __name__ == '__main__':
     my_App = MyApp(window)
     timer = threadTimer(5, lambda : my_App.autoUpdate())
     timer.start()
+
     window.mainloop()
 
 
