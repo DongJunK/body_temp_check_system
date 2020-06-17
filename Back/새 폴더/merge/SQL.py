@@ -6,6 +6,8 @@ from ConnectionDB import Connection as ConnDB
 import datetime
 from sqlite3 import Error
 import inspect
+from RaspberryDB import Raspberry as Create_RaspberryTable
+from StudentDB import Student as Create_StudentTable
 
 
 class SQL_Syntax:
@@ -28,15 +30,17 @@ class SQL_Syntax:
             print(method, end=' /Error is ')
             print(e)
 
-    def setCreateTable(self, sql_initTable_syntax, sql_studentTable_syntax, sql_raspberryTable_syntax):
+    def setCreateTable(self, sql_initTable_syntax):
         try:
             c = self.db_conn.cursor()
             c.execute(sql_initTable_syntax)
-            c.execute(sql_studentTable_syntax)
-            c.execute(sql_raspberryTable_syntax)
+            # c.execute(sql_studentTable_syntax)
+            # c.execute(sql_raspberryTable_syntax)
+            Create_RaspberryTable(self.db_conn)
+            Create_StudentTable(self.db_conn)
             c.close()
         except Error as e:
-            print(e)
+            print()
 
     def get_All_data(self):
         sql = "SELECT * FROM log"
@@ -110,3 +114,16 @@ class SQL_Syntax:
     #     f.close
     #     self.db_conn.close()
     #     print("CSV file export done.")
+
+# if __name__ == '__main__':
+#     sql_create_init_table = """ CREATE TABLE IF NOT EXISTS log(
+#                                                         id integer PRIMARY KEY,
+#                                                         raspberry_pi_serial_number text NOT NULL,
+#                                                         student_number INTEGER NOT NULL,
+#                                                         temperature text NOT NULL,
+#                                                         logtime date INTEGER NOT NULL,
+#                                                         Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+#                                                     ); """
+#     a = SQL_Syntax(os.getcwd() + "\\database.db")
+#     a.setCreateTable(sql_create_init_table)
+#     del a
