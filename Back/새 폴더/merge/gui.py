@@ -1,4 +1,7 @@
 import sqlite3
+import tkinter
+import requests
+import tkcalendar
 from tkinter import *
 from tkcalendar import *
 from tkinter import ttk
@@ -11,6 +14,7 @@ import os
 from re import search
 import sys
 from tkinter import messagebox as tmb
+import threading
 
 path = os.getcwd() + "\\database.db"
 sql_create_init_table = """ CREATE TABLE IF NOT EXISTS log(
@@ -75,7 +79,7 @@ class MyApp:
 
         # treeview click
         # self.treeview.bind("<Double-1>", self.OnDoubleClick)
-        self.treeview.bind("<<TreeviewSelect>>", self.OnDoubleClick)
+        self.treeview.bind("<Double-1>", self.OnDoubleClick)
 
         # 마지막 수정 시간
         self.time_frame = Frame(self.master)
@@ -85,20 +89,93 @@ class MyApp:
         self.text_label.grid(row=0, column=0)
         self.time_label.grid(row=0, column=1)
 
-        # 최근 로그 시간 get_last_log_timestamp()
-        conn = Sql(path)
-        log_time = str(conn.get_last_log_timestamp())
-        if conn.get_last_log_timestamp() is None:
-            log_time = '-'
-        del conn
+        # 최근 로그 시간
+        log_time = self.getLogtime()
 
         self.logText_label = Label(self.time_frame, text='최근 로그 시간')
         self.logTime_Label = Label(self.time_frame, text=log_time[:19])
         self.logText_label.grid(row=1, column=0)
         self.logTime_Label.grid(row=1, column=1)
 
+        # progress bar
+        self.progressbar = ttk.Progressbar(self.master, orient=HORIZONTAL, length=200, mode='determinate')
+        self.progress_label = Label(self.master, text='')
+        self.progress_label.place(x=30, y=310)
+
+
+
+        # Set Data
         self.autoUpdate()
         self.click_search()
+
+    def thread_progressbar(self, last_update):
+
+        self.progressbar.place(x=30, y=280) # Set progressbar visible
+        self.progress_label.place(x=30, y=310) # Set progress_label visible
+        #self.progress_label = Label(self.master, text='') # Init text
+        # log = Log(last_update)  # Bring log to IoT Makers parameter is start date
+        # log_list = log.get_log_list()  # Bring log return type is list
+        # par = Parsing(path)
+        # data = par.db_insert(log_list)
+        import time
+
+        for w in self.master.winfo_children(): # set Button disabled
+            if type(w) == tkinter.Button:
+                w.configure(state="disabled")
+        self.treeview.unbind("<Double-1>") # Set treeview double click disabled
+
+
+        log = Log(last_update)  # Bring log to IoT Makers parameter is start date
+        self.progressbar['value'] = 20
+        self.progress_label['text'] = "Connecting IoT Makers"
+        self.master.update()
+        # self.progress_label.configure(text="Bring log to IoT Makers parameter is start date")
+
+        log_list = log.get_log_list()  # Bring log return type is list
+        if type(log_list) is requests.exceptions.ConnectionError:
+            # if None, Something wrong 1. internet disconnect 2. token expire or others problem
+            self.progress_label['text'] = "Connection Fail"
+            self.master.update()
+        elif log_list is None:
+            self.progressbar['value'] = 100
+            self.progress_label['text'] = "Latest Version!"
+
+        else:
+            self.progressbar['value'] = 40
+            self.progress_label['text'] = "Bring Log from IoT Makers"
+            self.master.update()
+
+            par = Parsing(path)
+            self.progressbar['value'] = 60
+            self.progress_label['text'] = "Parsing Log Data"
+            self.master.update()
+
+            data = par.db_insert(log_list)
+            self.progressbar['value'] = 80
+            self.progress_label['text'] = "Update DataBase"
+            self.master.update()
+
+            self.progressbar['value'] = 100
+            self.progress_label['text'] = "Done!"
+
+        time.sleep(1)
+        self.progress_label.place_forget()  # Set progress label unvisible
+        self.progressbar.place_forget()  # Set progress bar unvisible
+        for w in self.master.winfo_children():  # button set enable
+            if type(w) == tkinter.Button:
+                w.configure(state="normal")
+        self.treeview.bind("<Double-1>", self.OnDoubleClick)  # set enable double click on treevie
+
+
+    def getLogtime(self):
+
+        conn = Sql(path)
+        log = str(conn.get_last_log_timestamp())
+        if conn.get_last_log_timestamp() is None:
+            log = '-'
+        del conn
+        return log
+
 
     def attribute(self):
         self.treeview['columns'] = ['1', '2', '3', '4', '5']
@@ -198,13 +275,13 @@ class MyApp:
         db_query.setCreateTable(sql_create_init_table)  # Table Create
         dbData = db_query.get_join_data()
         last_update = db_query.get_last_log_timestamp()  # Get latest log datetime in Table return type is datetime
-
-        log = Log(last_update)  # Bring log to IoT Makers parameter is start date
-        log_list = log.get_log_list()  # Bring log return type is list
-        par = Parsing(path)
-        data = par.db_insert(log_list)
-
         del db_query
+
+        self.thread = threading.Thread()
+        self.thread.__init__(target=self.thread_progressbar(last_update),
+                             args=())
+        self.thread.daemon = True
+        self.thread.start()
 
         if self.allData is None:
             self.allData = dbData
@@ -230,9 +307,10 @@ class MyApp:
 if __name__ == '__main__':
     window = Tk()
     window.title('교내 출입 기록')
-    window.geometry("870x340")
+    window.geometry("870x370")
     window.resizable(False, False)
     my_App = MyApp(window)
+
     timer = threadTimer(5, lambda : my_App.autoUpdate())
     timer.start()
 
