@@ -31,7 +31,7 @@ class GetLog:
             try:
                 return requests.get(url, headers=headers)
             except requests.exceptions.ConnectionError as c:
-                return None
+                return c
 
 
 
@@ -68,8 +68,8 @@ class GetLog:
         current_timestamp = int(datetime.datetime.now().timestamp()*1000)
         datetime_range = '?from={}&to={}'.format(self.datetime_from, current_timestamp)
         resp = self.req(datetime_range, 'GET')
-        if resp is None:
-            return None
+        if type(resp) is requests.exceptions.ConnectionError:
+            return resp
         resp_body = resp.json()
         try:
             if search('OK', resp_body['responseCode']):
