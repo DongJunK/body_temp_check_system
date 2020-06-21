@@ -97,6 +97,9 @@ class MyApp:
         self.logText_label.grid(row=1, column=0)
         self.logTime_Label.grid(row=1, column=1)
 
+        
+
+        # Auto Updating
         self.autoUpdate()
         self.click_search()
 

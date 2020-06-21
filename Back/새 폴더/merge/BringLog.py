@@ -26,8 +26,14 @@ class GetLog:
 
         url = API_HOST + path
         if method == 'GET':
-            #Try Exception - requests.exceptions.ConnectionError
-            return requests.get(url, headers=headers)
+            # Try Exception - requests.exceptions.ConnectionError
+            # If disconnect internet
+            try:
+                return requests.get(url, headers=headers)
+            except requests.exceptions.ConnectionError as c:
+                return None
+
+
 
     def getToken_json(self, path):
         try:
@@ -62,6 +68,8 @@ class GetLog:
         current_timestamp = int(datetime.datetime.now().timestamp()*1000)
         datetime_range = '?from={}&to={}'.format(self.datetime_from, current_timestamp)
         resp = self.req(datetime_range, 'GET')
+        if resp is None:
+            return None
         resp_body = resp.json()
         try:
             if search('OK', resp_body['responseCode']):
