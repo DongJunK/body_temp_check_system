@@ -42,6 +42,7 @@ sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
 class MyApp:
     allData = None
     tem = 37.5
+    log_time = None
 
     def __init__(self, master):
 
@@ -90,10 +91,10 @@ class MyApp:
         self.time_label.grid(row=0, column=1)
 
         # 최근 로그 시간
-        log_time = self.getLogtime()
+        self.log_time = self.getLogtime()
 
         self.logText_label = Label(self.time_frame, text='최근 로그 시간')
-        self.logTime_Label = Label(self.time_frame, text=log_time[:19])
+        self.logTime_Label = Label(self.time_frame, text=self.log_time[:19])
         self.logText_label.grid(row=1, column=0)
         self.logTime_Label.grid(row=1, column=1)
 
@@ -290,6 +291,7 @@ class MyApp:
             else:
                 sub = len(dbData) - len(self.allData)
                 self.allData = dbData
+                self.log_time = str(last_update)
                 return dbData[0:sub]
 
     def autoUpdate(self):
@@ -308,6 +310,7 @@ class MyApp:
                         self.treeview.insert("", 0, values=item, tags='P')
                     else:
                         self.treeview.insert("", 0, values=item)
+            self.logTime_Label['text'] = self.log_time[:19]
 
 
 if __name__ == '__main__':

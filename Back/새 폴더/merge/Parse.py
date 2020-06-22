@@ -37,8 +37,8 @@ class Parsing:
                 log_time = dic.get('occDt')
                 # log_data_key = list(dic.get('attributes').keys())[0]  # get Data whatever TagStream;
                 # log_data = dic.get('attributes').get(log_data_key)
-                # log_data = dic.get('attributes').get('userInfo')  # Limited by TagStream name
-                log_data = dic.get('attributes').get('tempInfo')  # Limited by TagStream name
+                log_data = dic.get('attributes').get('userInfo')  # Limited by TagStream name
+                # log_data = dic.get('attributes').get('tempInfo')  # Limited by TagStream name
                 # Mechanism:dictionary keys to 'list'ization and get keys
                 if log_time is not None and log_data is not None:
                     self.db_error(log_data + '_' + log_time)
