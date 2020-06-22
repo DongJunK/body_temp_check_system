@@ -124,7 +124,6 @@ class MyApp:
                 w.configure(state="disabled")
         self.treeview.unbind("<Double-1>") # Set treeview double click disabled
 
-
         log = Log(last_update)  # Bring log to IoT Makers parameter is start date
         self.progressbar['value'] = 20
         self.progress_label['text'] = "Connecting IoT Makers"
@@ -139,6 +138,7 @@ class MyApp:
         elif log_list is None:
             self.progressbar['value'] = 100
             self.progress_label['text'] = "Latest Version!"
+            self.master.update()
 
         else:
             self.progressbar['value'] = 40
