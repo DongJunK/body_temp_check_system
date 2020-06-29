@@ -25,19 +25,6 @@ sql_create_init_table = """ CREATE TABLE IF NOT EXISTS log(
                                                     logtime date INTEGER NOT NULL,
                                                     Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
                                                 ); """
-sql_create_student_table = """ CREATE TABLE IF NOT EXISTS student1(
-                                                            student_id integer PRIMARY KEY,
-                                                            student_name text NOT NULL,
-                                                            student_phone text,
-                                                            student_major text NOT NULL
-                                                            ); """
-
-sql_create_raspberry_table = """ CREATE TABLE IF NOT EXISTS raspberry(
-                                                            id integer PRIMARY KEY,
-                                                            raspberry_number text NOT NULL,
-                                                            build_name text NOT NULL
-                                                            ); """
-
 
 class MyApp:
     allData = None
@@ -167,7 +154,6 @@ class MyApp:
                 w.configure(state="normal")
         self.treeview.bind("<Double-1>", self.OnDoubleClick)  # set enable double click on treevie
 
-
     def getLogtime(self):
         conn = Sql(path)
         log = str(conn.get_last_log_timestamp())
@@ -175,7 +161,6 @@ class MyApp:
             log = '-'
         del conn
         return log
-
 
     def attribute(self):
         self.treeview['columns'] = ['1', '2', '3', '4', '5']
@@ -292,6 +277,7 @@ class MyApp:
                 sub = len(dbData) - len(self.allData)
                 self.allData = dbData
                 self.log_time = str(last_update)
+
                 return dbData[0:sub]
 
     def autoUpdate(self):
@@ -311,7 +297,6 @@ class MyApp:
                     else:
                         self.treeview.insert("", 0, values=item)
             self.logTime_Label['text'] = self.log_time[:19]
-
 
 if __name__ == '__main__':
     window = Tk()
